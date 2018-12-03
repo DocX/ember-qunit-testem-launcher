@@ -16,7 +16,7 @@ None
 
 None
 
-## Next ideas
+## Next ideas
 
 * It always open new tab in browswer. Can we open/reload the existing tab?
 * Start the Testem server if it does not run.
