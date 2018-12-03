@@ -6,6 +6,8 @@ Opens testem server with QUnit module from open file.
 
 Open your ember qunit test file and run `Testem: Run file module` command via CMD-SHIFT-P.
 
+It opens new browser tab with the Testem server with the first module ID declared in the test file.
+
 You can configure keyboard shortcut for the command using VS Code Keyboard Shortcuts settings.
 
 ## Requirements
