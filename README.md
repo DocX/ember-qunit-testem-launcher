@@ -16,6 +16,21 @@ None
 
 None
 
+## Install
+
+Install from Extensions market place: 
+
+https://marketplace.visualstudio.com/items?itemName=DocX.ember-qunit-testem-launcher
+
+Or build locally:
+
+```
+npm install -g vsce
+vsce package
+```
+
+Then install the generated `vsxi` file from Extensions menu in VS Code 
+
 ## Next ideas
 
 * It always open new tab in browswer. Can we open/reload the existing tab?
