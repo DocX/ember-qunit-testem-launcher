@@ -2,7 +2,12 @@
     "name": "ember-qunit-testem-launcher",
     "displayName": "ember-qunit-testem-launcher",
     "description": "Run QUnit modules and tests in testem from line in the test file",
-    "version": "1.0",
+    "version": "1.0.0",
+    "publisher": "DocX",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DocX/ember-qunit-testem-launcher.git"
+    },
     "engines": {
         "vscode": "^1.29.0"
     },
