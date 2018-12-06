@@ -6,7 +6,7 @@ import { testemUrlFor } from './testem_helpers';
 export function runQUnitTestemCurrentModule(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
   let moduleName = findFirstModuleName(textEditor);
   if (!moduleName) {
-      vscode.window.showWarningMessage('No module find in this file');
+      vscode.window.showWarningMessage('No test module found in this file');
       return;
   }
 
