@@ -28,11 +28,11 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function waitForTestemServer(timeout: number = 300000) {
+export async function waitForTestemServer(waitingFn: (ms: number) => void, timeout: number = 300000) {
   while(await checkTestemIsRunning() !== true) {
-    console.log("Waiting for testem server to run...");
-    await sleep(100);
-    timeout -= 100;
+    waitingFn(timeout);
+    await sleep(5000);
+    timeout -= 5000;
     if (timeout <= 0) {
       return false;
     }

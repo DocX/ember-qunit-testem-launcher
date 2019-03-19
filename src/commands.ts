@@ -34,11 +34,14 @@ export async function startTestemServer(terminalManager: TerminalManager) {
   terminalManager.runCommand(terminal, 'script/test -s');
   terminal.show();
   vscode.window.showInformationMessage('Starting Testem server in integrated Terminal...');
+  return await waitForTestemServer((ms) => vscode.window.showInformationMessage(`Waiting for Testem server to run (${ms/1000}s)...`));
 }
 
 export async function startServerAndOpenModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
-  await startTestemServer(terminalManager);
-  await waitForTestemServer();
-
-  openModuleUrl(textEditor, terminalManager);
+  let started = await startTestemServer(terminalManager);
+  if (started) {
+    openModuleUrl(textEditor, terminalManager);
+  } else {
+    vscode.window.showWarningMessage('Starting Testem server timed out');
+  }
 }
