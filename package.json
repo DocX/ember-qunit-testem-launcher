@@ -16,7 +16,8 @@
     ],
     "activationEvents": [
         "onCommand:extension.openModuleUrl",
-        "onCommand:extension.startTestemServer"
+        "onCommand:extension.startTestemServer",
+        "onCommand:extension.startServerAndOpenModuleUrl"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -28,6 +29,10 @@
             {
                 "command": "extension.startTestemServer",
                 "title": "Testem: Start server in terminal"
+            },
+            {
+                "command": "extension.startServerAndOpenModuleUrl",
+                "title": "Testem: Start server and open module"
             }
         ]
     },

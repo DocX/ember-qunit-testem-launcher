@@ -38,6 +38,7 @@ export async function startTestemServer(terminalManager: TerminalManager) {
 
 export async function startServerAndOpenModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
   await startTestemServer(terminalManager);
-
   await waitForTestemServer();
+
+  openModuleUrl(textEditor, terminalManager);
 }

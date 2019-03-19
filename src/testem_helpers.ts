@@ -24,6 +24,18 @@ export async function checkTestemIsRunning() {
   }
 }
 
-export async function waitForTestemServer() {
-  //TODO
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export async function waitForTestemServer(timeout: number = 300000) {
+  while(await checkTestemIsRunning() !== true) {
+    console.log("Waiting for testem server to run...");
+    await sleep(100);
+    timeout -= 100;
+    if (timeout <= 0) {
+      return false;
+    }
+  }
+  return true;
 }

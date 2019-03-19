@@ -18,8 +18,8 @@ export function activate(context: vscode.ExtensionContext) {
         'extension.startTestemServer',
         () => commands.startTestemServer(terminalManager)),
     );
-    context.subscriptions.push(vscode.commands.registerCommand(
-        'extension.startTestemServer',
-        () => commands.startTestemServer(terminalManager)),
+    context.subscriptions.push(vscode.commands.registerTextEditorCommand(
+        'extension.startServerAndOpenModuleUrl',
+        (textEditor) => commands.startServerAndOpenModuleUrl(textEditor, terminalManager)),
     );
 }
