@@ -15,14 +15,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.runQUnitTestemCurrentModule"
+        "onCommand:extension.openModuleUrl",
+        "onCommand:extension.startTestemServer"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.runQUnitTestemCurrentModule",
+                "command": "extension.openModuleUrl",
                 "title": "Testem: Run file module"
+            },
+            {
+                "command": "extension.startTestemServer",
+                "title": "Testem: Start server in terminal"
             }
         ]
     },
@@ -41,5 +46,8 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.21"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@types/superagent": "^3.8.6",
+        "superagent": "^4.1.0"
+    }
 }

@@ -1,9 +1,12 @@
 import * as vscode from 'vscode';
 import { generateTestHash } from './qunit_utilites';
 import { findFirstModuleName } from './qunit_test_file_helpers';
-import { testemUrlFor } from './testem_helpers';
+import { testemUrlFor, checkTestemIsRunning, waitForTestemServer } from './testem_helpers';
+import TerminalManager from './terminal';
 
-export function runQUnitTestemCurrentModule(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
+const TERMINAL_NAME = 'Testem Server';
+
+export function openModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
   let moduleName = findFirstModuleName(textEditor);
   if (!moduleName) {
       vscode.window.showWarningMessage('No module find in this file');
@@ -17,6 +20,24 @@ export function runQUnitTestemCurrentModule(textEditor: vscode.TextEditor, edit:
   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(testUrl));
 }
 
-export default [
-  { name: 'extension.runQUnitTestemCurrentModule', fn: runQUnitTestemCurrentModule },
-];
+export async function startTestemServer(terminalManager: TerminalManager) {
+  if (await checkTestemIsRunning()) {
+    vscode.window.showInformationMessage('Server appears to be running already...');
+    return;
+  }
+
+  let terminal = terminalManager.getOrCreateTerminal(TERMINAL_NAME);
+  if (!terminal) {
+    vscode.window.showWarningMessage('You have to open workspace first before starting server');
+    return;
+  }
+  terminalManager.runCommand(terminal, 'script/test -s');
+  terminal.show();
+  vscode.window.showInformationMessage('Starting Testem server in integrated Terminal...');
+}
+
+export async function startServerAndOpenModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
+  await startTestemServer(terminalManager);
+
+  await waitForTestemServer();
+}

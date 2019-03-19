@@ -1,3 +1,5 @@
+import { get } from 'superagent';
+
 const TESTEM_BASE_URL = 'http://localhost:7357/tests/index.html';
 
 interface TestemModuleID { moduleId: string; }
@@ -11,4 +13,17 @@ export function testemUrlFor(ids: TestenID[]) {
   });
 
   return `${TESTEM_BASE_URL}?${query.join('&')}`;
+}
+
+export async function checkTestemIsRunning() {
+  try {
+    let result = await get(TESTEM_BASE_URL);
+    return result.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function waitForTestemServer() {
+  //TODO
 }
