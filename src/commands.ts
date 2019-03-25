@@ -13,7 +13,8 @@ export function runQUnitTestemCurrentModule(textEditor: vscode.TextEditor, edit:
   let moduleId = generateTestHash(moduleName);
   vscode.window.showInformationMessage(`Opening module: ${moduleName} (${moduleId})`);
 
-  let testUrl = testemUrlFor([{moduleId}]);
+  let configuration = vscode.workspace.getConfiguration();
+  let testUrl = testemUrlFor([{moduleId}], configuration);
   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(testUrl));
 }
 
