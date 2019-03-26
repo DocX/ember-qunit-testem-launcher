@@ -1,8 +1,8 @@
 {
     "name": "ember-qunit-testem-launcher",
-    "displayName": "ember-qunit-testem-launcher",
-    "description": "Run QUnit modules and tests in testem from line in the test file",
-    "version": "1.0.0",
+    "displayName": "Testem module launcher",
+    "description": "Opens Testem module URL for module in current test file",
+    "version": "1.1.0",
     "publisher": "DocX",
     "repository": {
         "type": "git",
@@ -12,7 +12,7 @@
         "vscode": "^1.29.0"
     },
     "categories": [
-        "Other"
+        "Other", "Programming Languages"
     ],
     "activationEvents": [
         "onCommand:extension.runQUnitTestemCurrentModule"
