@@ -2,9 +2,9 @@
     "name": "ember-qunit-testem-launcher",
     "displayName": "Testem module launcher",
     "description": "Opens Testem module URL for module in current test file",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "publisher": "DocX",
-    "license": "LICENSE.md",
+    "license": "MIT",
     "homepage": "https://github.com/DocX/ember-qunit-testem-launcher/blob/master/README.md",
     "bugs": {
         "url": "https://github.com/DocX/ember-qunit-testem-launcher/issues",
