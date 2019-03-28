@@ -4,9 +4,20 @@
     "description": "Opens Testem module URL for module in current test file",
     "version": "1.1.0",
     "publisher": "DocX",
+    "license": "LICENSE.md",
+    "homepage": "https://github.com/DocX/ember-qunit-testem-launcher/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/DocX/ember-qunit-testem-launcher/issues",
+        "email": "lukas@dolezalu.cz"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/DocX/ember-qunit-testem-launcher.git"
+    },
+    "icon": "images/testem.png",
+    "galleryBanner": {
+        "color": "#C80000",
+        "theme": "dark"
     },
     "engines": {
         "vscode": "^1.29.0"
