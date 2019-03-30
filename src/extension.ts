@@ -1,7 +1,7 @@
 'use strict';
 import * as vscode from 'vscode';
 import * as commands from './commands';
-import TerminalManager from './terminal';
+import TerminalManager from './terminal_manager';
 
 export function activate(context: vscode.ExtensionContext) {
     // The command has been defined in the package.json file

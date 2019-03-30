@@ -2,26 +2,30 @@ import * as vscode from 'vscode';
 import { generateTestHash } from './qunit_utilites';
 import { findFirstModuleName } from './qunit_test_file_helpers';
 import { testemUrlFor, checkTestemIsRunning, waitForTestemServer } from './testem_helpers';
-import TerminalManager from './terminal';
+import TerminalManager from './terminal_manager';
 
 const TERMINAL_NAME = 'Testem Server';
 
 export function openModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
   let moduleName = findFirstModuleName(textEditor);
   if (!moduleName) {
-      vscode.window.showWarningMessage('No module find in this file');
+      vscode.window.showWarningMessage('No test module found in this file');
       return;
   }
 
   let moduleId = generateTestHash(moduleName);
   vscode.window.showInformationMessage(`Opening module: ${moduleName} (${moduleId})`);
 
-  let testUrl = testemUrlFor([{moduleId}]);
+  let configuration = vscode.workspace.getConfiguration();
+  let testUrl = testemUrlFor([{moduleId}], configuration);
   vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(testUrl));
 }
 
 export async function startTestemServer(terminalManager: TerminalManager) {
-  if (await checkTestemIsRunning()) {
+  let configuration = vscode.workspace.getConfiguration();
+  let testemServerURL = <string> configuration.get('testemLauncher.testemServerURL');
+
+  if (await checkTestemIsRunning(testemServerURL)) {
     vscode.window.showInformationMessage('Server appears to be running already...');
     return;
   }
@@ -31,10 +35,24 @@ export async function startTestemServer(terminalManager: TerminalManager) {
     vscode.window.showWarningMessage('You have to open workspace first before starting server');
     return;
   }
-  terminalManager.runCommand(terminal, 'script/test -s');
+
+  let testemStartServerCmd = <string> configuration.get('testemLauncher.testemStartServerCmd');
+  terminalManager.runCommand(terminal, testemStartServerCmd);
   terminal.show();
   vscode.window.showInformationMessage('Starting Testem server in integrated Terminal...');
-  return await waitForTestemServer((ms) => vscode.window.showInformationMessage(`Waiting for Testem server to run (${ms/1000}s)...`));
+  
+  return await waitForTestemServer(
+    testemServerURL,
+    async (ms, cancel) => {
+      let action = await vscode.window.showInformationMessage(
+        `Waiting for Testem server to start (${ms/1000}s)...`, 
+        'Cancel'
+      );
+      if (action === 'Cancel') {
+        cancel();
+      }
+    }
+  );
 }
 
 export async function startServerAndOpenModuleUrl(textEditor: vscode.TextEditor, terminalManager: any) {
@@ -42,6 +60,6 @@ export async function startServerAndOpenModuleUrl(textEditor: vscode.TextEditor,
   if (started) {
     openModuleUrl(textEditor, terminalManager);
   } else {
-    vscode.window.showWarningMessage('Starting Testem server timed out');
+    vscode.window.showWarningMessage('Starting Testem server timed out or was cancelled');
   }
 }

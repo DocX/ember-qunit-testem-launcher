@@ -10,7 +10,7 @@ export default class TerminalManager {
 
   private onDidCloseTerminal(terminal: vscode.Terminal) {
     if (this.activeTerminals[terminal.name]) {
-        delete this.activeTerminals[terminal.name];
+      delete this.activeTerminals[terminal.name];
     }
   }
 
