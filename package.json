@@ -16,7 +16,7 @@
     },
     "icon": "images/testem.png",
     "galleryBanner": {
-        "color": "#C80000",
+        "color": "#bdb470",
         "theme": "dark"
     },
     "engines": {
@@ -26,14 +26,24 @@
         "Other", "Programming Languages"
     ],
     "activationEvents": [
-        "onCommand:extension.runQUnitTestemCurrentModule"
+        "onCommand:extension.openModuleUrl",
+        "onCommand:extension.startTestemServer",
+        "onCommand:extension.startServerAndOpenModuleUrl"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.runQUnitTestemCurrentModule",
+                "command": "extension.openModuleUrl",
                 "title": "Testem: Run file module"
+            },
+            {
+                "command": "extension.startTestemServer",
+                "title": "Testem: Start server in terminal"
+            },
+            {
+                "command": "extension.startServerAndOpenModuleUrl",
+                "title": "Testem: Start server and open module"
             }
         ],
         "configuration": {
@@ -49,6 +59,11 @@
                     "type": "string",
                     "default": "http://localhost:7357",
                     "description": "The base URL to use when opening testem browser. Can be overwritten for remote server or custom ports."
+                },
+                "testemLauncher.testemStartServerCmd": {
+                    "type": "string",
+                    "default": "./node_modules/ember-cli/bin/ember test --server",
+                    "description": "Shell command that starts the testem server in TDD mode"
                 }
             }
         }    
@@ -68,5 +83,8 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.21"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@types/superagent": "^3.8.6",
+        "superagent": "^4.1.0"
+    }
 }

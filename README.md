@@ -1,14 +1,14 @@
 # Ember QUnit Testem launcher
 
-Opens testem server with QUnit module from open file.
+Opens Testem URL for current test file module
 
 ## Features
 
-Open your ember qunit test file and run `Testem: Run file module` command via CMD-SHIFT-P.
+**Testem: Start server and open module** command:
 
-It opens new browser tab with the Testem server with the first module ID declared in the test file.
-
-You can configure keyboard shortcut for the command using VS Code Keyboard Shortcuts settings.
+1. Checks if Testem server can be reached
+2. Starts Testem command in integrated terminal if not and waits for server to be running
+3. Opens URL in your default browser with `moduleId` of the topmost module in the current open file
 
 ## Requirements
 
@@ -16,7 +16,9 @@ None
 
 ## Extension Settings
 
-None
+* **testemLauncher.testemStartServerCmd** - shell command used to start Testem server. Override if you use custom script.
+* **testemLauncher.testemServerURL** - base URL of Testem server. Override if you run Testem remotely or on different port.
+* **testemLauncher.testemURLSessionId** - number used to append to the URL which identifies the browser session in Testem console. 
 
 ## Install
 
@@ -32,10 +34,3 @@ vsce package
 ```
 
 Then install the generated `vsxi` file from Extensions menu in VS Code 
-
-## Next ideas
-
-* It always open new tab in browswer. Can we open/reload the existing tab?
-* Start the Testem server if it does not run.
-* Run specific test or submodule from current line.
-* Find test file for current component/controller file and run the module from that.

@@ -2,14 +2,14 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as sinon from 'sinon';
-import { runQUnitTestemCurrentModule } from '../commands';
+import { openModuleUrl } from '../commands';
 
 async function runCommandInFileEditor(filePath: string) {
     let document = await vscode.workspace.openTextDocument(filePath);
     let textEditor = await vscode.window.showTextDocument(document);
 
     await textEditor.edit(editBuilder => {
-        runQUnitTestemCurrentModule(textEditor, editBuilder);
+        openModuleUrl(textEditor, editBuilder);
     });
 }
 
